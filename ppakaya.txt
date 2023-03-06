@@ -1,0 +1,689 @@
+find data type::*********
+
+<!DOCTYPE html>
+<html>
+<body>
+<?php 
+$x = 5985;
+var_dump($x);
+?> 
+</body>
+</html>
+
+switch case::************
+
+<?php
+$favcolor = "red";
+switch ($favcolor) {
+ case "red":
+ echo "Your favorite color is red!";
+ break;
+ case "blue":
+ echo "Your favorite color is blue!";
+ break;
+ case "green":
+ echo "Your favorite color is green!";
+ break;
+ default:
+ echo "Your favorite color is neither red, blue, nor 
+green!";
+}
+?>
+
+
+ if...else...elseif:::**********
+
+<?php
+$t = date("H");
+echo "<p>The hour (of the server) is " . $t; 
+echo ", and will give the following message:</p>";
+if ($t < "10") {
+ echo "Have a good morning!";
+} elseif ($t < "20") {
+ echo "Have a good day!";
+} else {
+ echo "Have a good night!";
+}
+?>
+
+
+do...while Loop:::************
+
+<?php
+$x = 0;
+do { 
+ echo $x."<br>";
+ $x+=2;
+} while ($x <= 50);
+?>
+
+for Loop:::
+
+<?php
+for ($i=0; $i < 50; $i+=2) { 
+echo $i."<br>";
+}
+?>
+
+foreach Loop:::**********
+
+<?php
+$colors = array("red", "green", "blue", "yellow");
+foreach ($colors as $value) {
+ echo "$value <br>";
+}
+?>
+
+
+Associative Arrays::**************
+
+<?php
+$age = array("Peter"=>"35", "Ben"=>"37", 
+"Joe"=>"43");
+foreach($age as $x => $x_value) {
+ echo "Key=" . $x . ", Value=" . $x_value;
+ echo "<br>";
+}
+?>
+
+ Multidimensional Arrays::********
+
+<?php
+$cars = array (
+ array("Volvo",22,18),
+ array("BMW",15,13),
+ array("Saab",5,2),
+ array("Land Rover",17,15)
+);
+ 
+for ($row = 0; $row < 4; $row++) {
+ echo "<p><b>Row number $row</b></p>";
+ echo "<ul>";
+ for ($col = 0; $col < 3; $col++) {
+ echo "<li>".$cars[$row][$col]."</li>";
+ }
+ echo "</ul>";
+}
+?>
+
+
+ Forms - Validate E-mail and URL:::**********
+
+<!DOCTYPE HTML> 
+<html>
+<head>
+<style>
+.error {color: #FF0000;}
+</style>
+</head>
+<body> 
+<?php
+// define variables and set to empty values
+$nameErr = $emailErr = $genderErr = $websiteErr = "";
+$name = $email = $gender = $comment = $website = "";
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+ if (empty($_POST["name"])) {
+ $nameErr = "Name is required";
+ } else {
+ $name = test_input($_POST["name"]);
+ // check if name only contains letters and whitespace
+ if (!preg_match("/^[a-zA-Z-' ]*$/",$name)) {
+ $nameErr = "Only letters and white space allowed";
+ }
+ }
+ 
+ if (empty($_POST["email"])) {
+ $emailErr = "Email is required";
+ } else {
+ $email = test_input($_POST["email"]);
+ // check if e-mail address is well-formed
+ if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+ $emailErr = "Invalid email format";
+ }
+ }
+ 
+ if (empty($_POST["website"])) {
+ $website = "";
+ } else {
+ $website = test_input($_POST["website"]);
+ // check if URL address syntax is valid
+ if 
+(!preg_match("/\b(?:(?:https?|ftp):\/\/|www\.)[-a-z0-
+9+&@#\/%?=~_|!:,.;]*[-a-z0-9+&@#\/%=~_|]/i",$website)) 
+{
+ $websiteErr = "Invalid URL";
+ } 
+ }
+
+ if (empty($_POST["comment"])) {
+ $comment = "";
+ } else {
+ $comment = test_input($_POST["comment"]);
+ }
+ if (empty($_POST["gender"])) {
+ $genderErr = "Gender is required";
+ } else {
+ $gender = test_input($_POST["gender"]);
+ }
+}
+function test_input($data) {
+ $data = trim($data);
+ $data = stripslashes($data);
+ $data = htmlspecialchars($data);
+ return $data;
+}
+?>
+<h2>PHP Form Validation Example</h2>
+<p><span class="error">* required field</span></p>
+<form method="post" action="<?php echo 
+htmlspecialchars($_SERVER["PHP_SELF"]);?>"> 
+ Name: <input type="text" name="name">
+ <span class="error">* <?php echo $nameErr;?></span>
+ <br><br>
+ E-mail: <input type="text" name="email">
+ <span class="error">* <?php echo $emailErr;?></span>
+ <br><br>
+ Website: <input type="text" name="website">
+ <span class="error"><?php echo $websiteErr;?></span>
+ <br><br>
+ Comment: <textarea name="comment" rows="5" 
+cols="40"></textarea>
+ <br><br>
+ Gender:
+ <input type="radio" name="gender" 
+value="female">Female
+ <input type="radio" name="gender" value="male">Male
+ <input type="radio" name="gender" 
+value="other">Other
+ <span class="error">* <?php echo $genderErr;?></span>
+ <br><br>
+ <input type="submit" name="submit" value="Submit"> 
+</form>
+
+<?php
+echo "<h2>Your Input:</h2>";
+echo $name;
+echo "<br>";
+echo $email;
+echo "<br>";
+echo $website;
+echo "<br>";
+echo $comment;
+echo "<br>";
+echo $gender;
+?>
+</body>
+</html>
+
+check pass or fail with js::***********
+
+<html>
+<head>
+<script>
+function test(){
+var marks;
+var pass_marks;
+marks = document.getElementById("marks").value;
+pass_marks = document.getElementById("pass_marks").value;
+if(marks > pass_marks){
+document.getElementById("output").innerHTML = 
+"Pass";
+}else {
+document.getElementById("output").innerHTML = 
+"Fail";
+}
+}
+</script>
+</head>
+<body>
+<p>Input Pass Marks: <input type="text" 
+id="pass_marks"></p>
+<p>Input Marks: <input type="text" id="marks"></p>
+<p id="output"></p>
+<p><input type="submit" value="Test" id="click" 
+onclick="test()"></p>
+</body>
+</html>
+
+PHP Multidimensional Arrays
+<?php
+$cars = array (
+ array("Volvo",22,18),
+ array("BMW",15,13),
+ array("Saab",5,2),
+ array("Land Rover",17,15)
+);
+
+echo $cars[0][0].": In stock: ".$cars[0][1].", sold:
+".$cars[0][2].".<br>";
+echo $cars[1][0].": In stock: ".$cars[1][1].", sold:
+".$cars[1][2].".<br>";
+echo $cars[2][0].": In stock: ".$cars[2][1].", sold:
+".$cars[2][2].".<br>";
+echo $cars[3][0].": In stock: ".$cars[3][1].", sold:
+".$cars[3][2].".<br>";
+?>
+--------
+<?php
+$cars = array (
+ array("Volvo",22,18),
+ array("BMW",15,13),
+ array("Saab",5,2),
+ array("Land Rover",17,15)
+);
+
+for ($row = 0; $row < 4; $row++) {
+ echo "<p><b>Row number $row</b></p>";
+ echo "<ul>";
+ for ($col = 0; $col < 3; $col++) {
+ echo "<li>".$cars[$row][$col]."</li>";
+ }
+ echo "</ul>";
+}
+?>
+--------
+
+$_POST Method
+Index.html
+<html>
+<body>
+<form action="welcome.php" method="post">
+Name: <input type="text" name="name"><br>
+E-mail: <input type="text" name="email"><br>
+<input type="submit">
+</form>
+</body>
+</html>
+Welcome.php
+<html>
+<body>
+Welcome <?php echo $_POST["name"]; ?><br>
+Your email address is: <?php echo $_POST["email"]; ?>
+</body>
+</html>
+
+-----------
+$_GET Method
+Index.html
+<html>
+<body>
+<form action="welcome_get.php" method="post">
+Name: <input type="text" name="name"><br>
+E-mail: <input type="text" name="email"><br>
+<input type="submit">
+</form>
+</body>
+</html>
+Welcome_get.php
+<html>
+<body>
+Welcome <?php echo $_GET["name"]; ?><br>
+Your email address is: <?php echo $_GET["email"]; ?>
+</body>
+</html>
+
+
+***bottstrap******
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>bootstrap</title>
+<!-- CSS only -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+<!-- JavaScript Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+
+
+</head>
+<body>
+<!--container-->
+<br>
+<div class="container">
+	<div class="row">
+		<div class="col-4">
+			<table class="table table-info">
+				<thead class="table-dark">
+					<th>cource</th>
+					<th>age</th>
+					<th>cource</th>
+				</thead>
+				<tbody>
+					<td>jhon</td>
+					<td>22</td>
+					<td>ict</td>
+				</tbody>
+				<tr>
+					<tbody>
+					<td>ka</td>
+					<td>34</td>
+					<td>BST</td>
+				</tbody>
+				</tr>
+				<tr>
+					<tbody>
+					<td>joe</td>
+					<td>21</td>
+					<td>new</td>
+				</tbody>
+				</tr>
+			</table>
+		</div>
+
+
+
+
+		
+
+		<div class="col-4">
+			<p class="h3 text-center">
+				Lorem ipsum, in graphical and textual context, refers to filler text that is placed in a document or visual presentation. Lorem ipsum is derived from the Latin "dolorem ipsum" roughly translated as "pain itself
+			</p>
+		</div>
+
+		<div class="col-4">
+            <form action="bootstrap.php" class="form-control">
+
+<form action="/add" method="post"> @csrf
+<H1>Registration Form</H1>
+
+<input type="text" placeholder="Enter First Name" name="username1"><br><br>
+
+<label for="gender" style="font-size:20pt"> Select the Gender </label><br>
+<input type="radio" id="gender1" name="gender1" value="male">
+<label for="html">Male</label><br><br>
+
+<label for="course" style="font-size:20pt"> Choose Your Course </label><br>
+<input type="checkbox" id="course1" name="course1" value="programming">
+<label for="course1">Programming</label><br><br>
+
+<input type="submit" name="submit" value="Submit" style="background-color:blue">
+</form>
+</div>
+
+
+	</div>
+	
+	
+</div>
+
+
+</body>
+</html>
+
+
+
+
+=====Image Upload=====
+
+//php artisan make: migration create_employees_table
+create_employees_table.php
+
+$table->string('name'); 
+$table->string('address');
+ $table->string('mobile'); }); }
+ $table->string('photo', 300); 
+
+//php artisan make: controller EmployeeController
+
+//php artisan make: model Employee
+
+---------------
+Employee.php
+<?php
+namespace App\Models; use
+Illuminate\Database\Eloquent\Factories\HasFactory; use
+Illuminate\Database\Eloquent\Model; class Employee
+extends Model
+{ use HasFactory; protected $table = 'employees';
+protected $primarykey = 'id'; protected $fillable =
+['name','address','mobile','photo']; } 
+
+-------
+ layout.blade.php 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initialscale=1.0">
+<title>Image Upload</title>
+<title>Laravel 9 Image Upload and Display in Datatable | File
+Storage</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.mi
+n.css" rel="stylesheet" integrity="sha384-
+1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+crossorigin="anonymous">
+</head>
+<body>
+<div class="container">
+@yield('content')
+</div>
+</body>
+</html>
+
+--------
+index.blade.php
+
+@extends('employees.layout')
+@section('content')
+<div class="container">
+<div class="row">
+<div class="col-12" style="padding:20px;">
+<div class="card">
+<div class="card-header">Laravel 9 Image
+Upload and Display in Datatable | File Storage</div>
+<div class="card-body">
+<a href="{{ url('/employee/create') }}"
+class="btn btn-success btn-sm" title="Add New Contact">
+Department of ICT | Faculty of Technology Page 8 of 13 2018/2019 2nd Year 2nd
+Semester
+<i class="fa fa-plus" ariahidden="true"></i> Add New </a>
+<br/>
+<br/>
+<div class="table-responsive">
+<table class="table">
+<thead>
+<tr>
+<th>#</th>
+<th>Name</th>
+<th>Address</th>
+<th>Telephone</th>
+<th>Photo</th>
+</thead>
+</thead>
+<tbody>
+@foreach($employees as $item)
+<tr>
+<td>{{ $loop->iteration
+}}</td>
+<td>{{ $item->name }}</td>
+<td>{{ $item->address
+}}</td>
+<td>{{ $item->mobile
+}}</td>
+<td>
+<img src="{{ 
+asset($item->photo) }}" width= '50' height='50' class="img imgresponsive" />
+</td>
+</tr>
+@endforeach
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+@endsection 
+
+-------
+Create.blade.php
+@extends('employees.layout')
+@section('content')
+<div class="card" style="margin: 20px;">
+<div class="card-header">Create New Employee</div>
+<div class="card-body">
+<form action="{{ url('employee') }}" method="post" enctype="multipart/formdata">
+{!! csrf_field() !!}
+<label>Name</label></br>
+<input type="text" name="name" id="name" class="formcontrol"></br>
+<label>Address</label></br>
+<input type="text" name="address" id="address" class="formcontrol"></br>
+<label>Mobile</label></br>
+<input type="text" name="mobile" id="mobile" class="formcontrol"></br>
+<input class="form-control" name="photo" type="file" id="photo">
+<input type="submit" value="Save" class="btn btn-success"></br>
+</form>
+</div>
+</div>
+@stop 
+
+------
+Controller
+
+<?php namespace
+App\Http\Controllers;
+use Illuminate\Http\Request; use
+App\Models\Employee;
+class EmployeeController extends Controller
+{ public
+function index()
+ {
+ $employees = Employee::all();
+return view ('employees.index')->with('employees',
+$employees);
+}
+public
+function
+create()
+ { return
+view('employees.create');
+ } public function
+store(Request $request)
+ {
+ $requestData = $request->all();
+ $fileName = time().$request->file('photo')-
+>getClientOriginalName();
+ $path = $request->file('photo')-
+>storeAs('images',
+$fileName,'public');
+ $requestData["photo"] =
+'/storage/'.$path;Employee::create($requestData);
+ return redirect('employee')-
+>with('flash_message', 'Employee Addedd!');
+ }
+ public function show($id)
+ { 
+//
+}
+ public
+function edit($id)
+ {
+ //
+ } 
+
+-------
+Routes
+
+<?php use Illuminate\Support\Facades\Route; use
+App\Http\Controllers\EmployeeController;
+Route::resource("/employee", EmployeeController::class); 
+
+----
+//php artisan storage:link 
+
+//php artisan serve
+
+//localhost:8000/employee
+
+===========CRUD operation database======
+
+Set DB_DATABASE = crud 
+
+Remove mb4 from Charset 
+
+//php artisan make: migration create_contacts_table
+$table->string(‘name’);
+$table->string(‘address’);
+$table->string(‘mobile’);
+
+//php artisan make: controller ContactController
+
+php artisan make: model Contact 
+protected $table = 'contacts';
+protected $primaryKey = 'id';
+protected $fillable = ['name', 'address',
+'mobile'];
+
+
+ContactController.php
+
+<?php namespace
+App\Http\Controllers;
+use App\Models\Contact;
+use
+Illuminate\Http\Request;
+class ContactController extends
+Controller
+{ public function index() { $contacts =
+Contact::all(); return view ('contacts.index')-
+>with('contacts', $contacts); }
+
+ public function create()
+{ return view('contacts.create'); }
+ public function store(Request $request)
+{ $input = $request->all(); Contact::create($input); return
+redirect('contact')->with('flash_message', 'Contact Addedd!'); }
+ public function show($id) { $contact =
+Contact::find($id); return view('contacts.show')-
+>with('contacts', $contact); }
+ public function edit($id) { $contact =
+Contact::find($id); return view('contacts.edit')-
+>with('contacts', $contact); }
+ public function update(Request $request,
+$id)
+{ $contact = Contact::find($id);
+$input = $request->all(); $contact->update($input); return
+redirect('contact')->with('flash_message', 'Contact Updated!'); }
+ public function destroy($id) { Contact::destroy($id); return
+redirect('contact')->with('flash_message', 'Contact deleted!'); }
+}
+
+web.php
+<?php use
+Illuminate\Support\Facades\Route; use
+App\Http\Controllers\ContactController;
+Route::resource('/contact', ContactController::class); 
+
+//php artisan serve
+
+//localhost:8000/contact
+
+
+
+=========Lab 10 Create Controller & call it form Routing ==========
+
+php artisan make:controller Users
+Users.php
+
+Public function index() {
+ Echo “Hello World!”; }
+
+web.php
+Use App\Http\Controller\Users;
+Route::get(‘/ ’,[Users::class,’index’]);
+
+Users.php
+Public function index() {
+ Return view(“about”); }
+
+about.blade.php
+
+<form action = “users” method=”post”> @csrf
+<input type=”text” name="username"> <br><br>
+<input type=”text” name="password"> <br><br>
+<input type=”submit” value="Submit">
+</form>
+
